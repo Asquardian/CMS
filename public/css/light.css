@@ -1,0 +1,46 @@
+.head{
+    background-color: rgb(238, 238, 238);
+}
+
+html{
+    background-color: rgb(255, 255, 255);
+    min-height: 100vh;
+}
+
+body{
+    margin: 0;
+    background-color: rgb(255, 255, 255) !important;
+    color: rgb(99, 99, 99) !important;
+}
+
+main{
+    background-color: rgb(255, 255, 255);
+}
+
+a{
+    color:rgb(0, 0, 0);
+}
+
+a:hover{
+    color:rgb(0, 0, 0);
+}
+
+footer{
+    background-color: rgb(238, 238, 238);
+}
+button {
+    background-color: #e4e4e4;
+    color: rgb(99, 99, 99);
+    border: none;
+    border-radius: 5px 5px;
+    padding: 1%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.theme{
+    background-color: #f3f3f38a;
+}
