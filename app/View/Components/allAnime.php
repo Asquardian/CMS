@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
-use App\Models\Anime;
+use Illuminate\Support\Facades\DB;
 
 class allAnime extends Component
 {
@@ -16,7 +16,9 @@ class allAnime extends Component
     protected $anime;
     public function __construct()
     {
-        $this->anime = new Anime();
+        $this->anime = DB::table('anime')->join('studios', 'anime.studio', '=', 'studios.id')
+        ->leftJoin('anime_info', 'anime.id', '=', 'anime_info.anime')
+        ->select(['anime.*', 'studios.name as studio', 'anime_info.description'])->get();
     }
 
     /**
@@ -24,7 +26,6 @@ class allAnime extends Component
      */
     public function render(): View|Closure|string
     {
-        $showAll = $this->anime::all();
-        return view('components.all-anime', ['anime' => $showAll]);
+        return view('components.all-anime', ['anime' => $this->anime]);
     }
 }

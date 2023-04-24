@@ -25,7 +25,9 @@ class animeShow extends Component
      */
     public function render(): View|Closure|string
     {
-        $thisAnime = DB::table('anime')->select(['*'])->where('url', $this->url)->get();
+        $thisAnime = DB::table('anime')->join('studios', 'anime.studio', '=', 'studios.id')
+        ->leftJoin('anime_info', 'anime.id', '=', 'anime_info.anime')
+        ->select(['anime.*', 'studios.name as studio', 'anime_info.description'])->where('url', $this->url)->get();
         return view('components.anime-show', ['anime' => $thisAnime]);
     }
 }

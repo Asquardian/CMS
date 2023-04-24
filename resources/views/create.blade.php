@@ -25,7 +25,11 @@
             {{ Form::label('date', 'Дата', array_merge(['class' => 'col-3'])) }}
             {{ Form::date('date', '', array_merge(['class' => 'form-control col-9 mt-2'], ['placeholder' => 'Введите Дату'])) }}
             {{ Form::label('studio', 'Студия', array_merge(['class' => 'col-3'])) }}
-            {{ Form::number('studio', '', array_merge(['class' => 'form-control col-9 mt-2'], ['placeholder' => 'Введите Студию'])) }}
+            <select class="form-control col-9 mt-2" name="studio">
+                @foreach($studios as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
+            </select>
             {{ Form::label('state', 'Состояние', array_merge(['class' => 'col-3'])) }}
             {{ Form::text('state', '', array_merge(['class' => 'form-control col-9 mt-2'], ['placeholder' => 'Введите Состояние'])) }}
             {{ Form::label('image', 'Изображение', array_merge(['class' => 'col-3'])) }}

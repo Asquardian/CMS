@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->integer('studio');
+            $table->unsignedBigInteger('studio');
             $table->date('date');
             $table->integer('rating')->default('0');
             $table->integer('votes')->default('0');
             $table->integer('state');
             $table->string('url')->unique();
+            $table->foreign('studio')->references('id')->on('studios')->onDelete('cascade');
             $table->timestamps();
         });
     }

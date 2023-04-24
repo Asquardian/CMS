@@ -15,7 +15,14 @@
 <body>
     <header class="head">
         <div class="container d-flex justify-content-between align-items-center h-100">
-            <h3 class="my-auto">Head</h3>
+            <div class="w-75">
+                <h3 class="my-auto">Let`s Anime</h3>
+                <div class="d-flex justify-content-between">
+                    <a href="/site/cms/public/anime">Все Аниме</a>
+                    <a href="/site/cms/public/create/anime">Создать аниме</a>
+                    <a href="/site/cms/public/create/studio">Создать студию</a>
+                </div>
+            </div>
             <button onclick="changeTheme()">change Theme</button>
         </div>
     </header>

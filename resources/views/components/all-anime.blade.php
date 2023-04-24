@@ -1,6 +1,6 @@
 <div class="container row mx-auto">
     @foreach ($anime as $item)
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12 pt-2">
             <div class="card" style="width: 18rem;">
                 <a href="anime/{{ $item->url }}" style="text-decoration: none;">
                     <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top anime-img"

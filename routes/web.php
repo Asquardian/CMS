@@ -3,7 +3,8 @@
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimeController;
-use App\Http\Models\Anime;
+use App\Http\Controllers\StudiosController;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,14 @@ use App\Http\Models\Anime;
 */
 
 Route::post('/add', [AnimeController::class, 'add'])->name('create-anime');
+Route::post('/add-studio', [StudiosController::class, 'add'])->name('create-studio');
 
 Route::get('/anime', function () {
     return view('main');
+});
+
+Route::get('/create/studio', function () {
+    return view('create-studio');
 });
 
 Route::get('/anime/{name?}', function ($name) {
@@ -27,6 +33,7 @@ Route::get('/anime/{name?}', function ($name) {
 });
 
 Route::get('/create/anime', function () {
-    return view('create');
+    $studios = DB::table('studios')->select(['id', 'name'])->get();
+    return view('create', ['studios' => $studios]);
 });
 

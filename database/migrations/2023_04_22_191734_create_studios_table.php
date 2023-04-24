@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('studios', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->string('name');
             $table->date('create');
-            $table->date('description');
+            $table->text('description');
+            $table->timestamps();
         });
     }
 

@@ -6,8 +6,13 @@
             </div>
             <div class="col-9">
                 <h1>{{ $item->name }}</h1>
-                <p>Студия: {{ $item->studio }}</p>
-                <p>Состояние: {{ $item->state }}</p>
+                <div class="row">
+                    <p class="col-6">Студия:</p> <p class="col-6">{{ $item->studio }}</p>
+                    <p class="col-6">Состояние:</p> <p class="col-6">{{ $item->state }}</p>
+                </div>
+            <p>
+                <a class="btn btn-primary">Добавить информацию</a>
+            </p>
             </div>
         </div>
     @endforeach

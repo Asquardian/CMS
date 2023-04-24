@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('anime_info', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
-            $table->date('date');
-            $table->foreign('id')->references('id')->on('anime')->onDelete('cascade');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('anime');
+            $table->json('heroes')->nullable();
+            $table->foreign('anime')->references('id')->on('anime')->onDelete('cascade');
         });
     }
 
