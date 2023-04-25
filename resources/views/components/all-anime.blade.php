@@ -1,4 +1,5 @@
 <div class="container row mx-auto">
+
     @foreach ($anime as $item)
         <div class="col-md-4 col-sm-12 pt-2">
             <div class="card" style="width: 18rem;">
@@ -10,6 +11,7 @@
                         <p class="card-text">
                             Студия: {{ $item->studio }}<br>
                             Статус: {{ $item->state }}<br>
+                            {{ date('Y', strtotime($item->date)) }}
                         </p>
                     </div>
                 </a>
@@ -17,3 +19,5 @@
         </div>
     @endforeach
 </div>
+
+<div class="container p-5">{{ $anime->links('vendor.pagination.bootstrap-5') }}</div>

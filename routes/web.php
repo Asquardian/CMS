@@ -1,6 +1,6 @@
 <?php
 
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimeController;
 use App\Http\Controllers\StudiosController;
@@ -20,8 +20,12 @@ use Illuminate\Support\Facades\DB;
 Route::post('/add', [AnimeController::class, 'add'])->name('create-anime');
 Route::post('/add-studio', [StudiosController::class, 'add'])->name('create-studio');
 
-Route::get('/anime', function () {
-    return view('main');
+
+Route::get('/anime', function (Request $req) {
+    if($req->exists("ord")){
+        return view('main', ['by' => $req->input('by'), 'ord' => $req->input('ord')]);
+    }
+    return view('main', ['by' => 'anime.date', 'ord' => 'DESC']);
 });
 
 Route::get('/create/studio', function () {
