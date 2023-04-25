@@ -24,8 +24,12 @@
                 <h3 class="my-auto">Let`s Anime</h3>
                 <div class="d-flex justify-content-between">
                     <a href="/site/cms/public/anime">Все Аниме</a>
-                    <a href="/site/cms/public/create/anime">Создать аниме</a>
-                    <a href="/site/cms/public/create/studio">Создать студию</a>
+                    @if (auth()->check())
+                        @if (auth()->user()->isAdmin())
+                            <a href="/site/cms/public/create/anime">Создать аниме</a>
+                            <a href="/site/cms/public/create/studio">Создать студию</a>
+                        @endif
+                    @endif
                 </div>
             </div>
             <button onclick="changeTheme()"><i class="fa fa-sun"></i></button>
@@ -34,9 +38,8 @@
                 <input type="text" id="term" name="term" class="form-control " autocomplete="off">
             </div>
             @if (auth()->check())
-                    <a href="#">{{ auth()->user()->name }}</a>
-                    <a href="{{ url('logout') }}">Выйти</a>
-
+                <a href="#">{{ auth()->user()->name }}</a>
+                <a href="{{ url('logout') }}">Выйти</a>
             @else
                 <a href="{{ url('login') }}">Войти</a>
                 <a href="{{ url('register') }}">Зарегистрироваться</a>
