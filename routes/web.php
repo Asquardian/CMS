@@ -22,6 +22,10 @@ Route::post('/add-studio', [StudiosController::class, 'add'])->name('create-stud
 
 Route::get('/autocomplete', [AnimeController::class, 'autocomplete'])->name('autocomplete');
 
+Route::get('/', function () {
+    return view('start');
+});
+
 Route::get('/anime', function (Request $req) {
     if($req->exists("ord") && $req->exists("by")){
         return view('main', ['by' => $req->input('by'), 'ord' => $req->input('ord')]);
