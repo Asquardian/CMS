@@ -1,13 +1,13 @@
-.head{
+.head {
     background-color: rgb(143, 143, 143);
 }
 
-html{
+html {
     background-color: rgb(95, 95, 95);
     min-height: 100vh;
 }
 
-body{
+body {
     margin: 0;
     background-color: rgb(95, 95, 95) !important;
     color: rgb(255, 255, 255) !important;
@@ -26,18 +26,33 @@ button {
     cursor: pointer;
 }
 
-footer{
+footer {
     background-color: #797979;
 }
 
-a{
-    color:rgb(255, 255, 255);
+a {
+    color: rgb(255, 255, 255);
 }
 
-a:hover{
-    color:rgb(255, 255, 255);
+a:hover {
+    color: rgb(255, 255, 255);
 }
 
-.theme{
+.theme {
     background-color: #666666;
+}
+
+.drop {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    padding: 3px;
+}
+
+
+.drop:hover {
+    background-color: rgb(27, 27, 27);
+}
+
+.drop:last-child {
+    border-radius: 0px 0px 10px 10px;
 }

@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\AnimeController;
 
 class allAnime extends Component
 {
@@ -42,9 +42,7 @@ class allAnime extends Component
     {
         $this->ord = $this->ordToSQL($by, $ord);
         $this->by = $this->byToSQL($by);
-        $this->anime = DB::table('anime')->join('studios', 'anime.studio', '=', 'studios.id')->orderBy($by, $ord)
-            ->leftJoin('anime_info', 'anime.id', '=', 'anime_info.anime')
-            ->select(['anime.*', 'studios.name as studio', 'anime_info.description']);
+        $this->anime = new AnimeController();
     }
 
     /**
@@ -52,6 +50,6 @@ class allAnime extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.all-anime', ['anime' => $this->anime->paginate(3)]);
+        return view('components.all-anime', ['anime' => $this->anime->getAnimePage($this->by, $this->ord)]);
     }
 }

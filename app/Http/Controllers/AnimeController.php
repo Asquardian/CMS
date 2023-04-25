@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AnimeRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use App\Models\Anime;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -44,4 +43,37 @@ class AnimeController extends Controller
         return redirect('/anime/' . $anime->url);
     }
 
+    public function getAnimePageDefault()
+    {
+        $anime = new Anime();
+        return $anime->getAnimePage('anime.date', 'DESC');
+    }
+
+    public function getAnimePageBy($by, $ord)
+    {
+        $anime = new Anime();
+        return $anime->getAnimePage($by, $ord);
+    }
+
+    public function __call($method, $args)
+    {
+        $argscnt = count($args);
+        if ($method == 'getAnimePage') {
+            switch ($argscnt) {
+                case 0:
+                    return call_user_func_array(array($this, 'getAnimePageDefault'), $args);
+                case 2:
+                    return call_user_func_array(array($this, 'getAnimePageBy'), $args);
+            }
+        }
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $res = Anime::select("name", "url")
+                ->where("name","LIKE","%{$request->term}%")->limit(5)
+                ->get();
+    
+        return response()->json($res);
+    }
 }

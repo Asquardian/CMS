@@ -1,4 +1,5 @@
 let themes = document.getElementsByTagName("link");
+console.log(themes);
 
 if (localStorage.theme == "dark.css") {
     for (let i = 0; i < themes.length; i++) {

@@ -27,5 +27,6 @@
         </select>
         <button>Поиск</button>
     </form>
+  
     <x-all-anime :by="$by" :ord="$ord" />
 @endsection
