@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\RegController;
+use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\StudiosController;
 use Illuminate\Support\Facades\DB;
 
@@ -45,4 +47,11 @@ Route::get('/create/anime', function () {
     $studios = DB::table('studios')->select(['id', 'name'])->get();
     return view('create', ['studios' => $studios]);
 });
+
+Route::get('/register', [RegController::class, 'create']);
+Route::post('/register', [RegController::class, 'store'])->name('user-create');
+
+Route::get('/login', [SessionsController::class, 'create']);
+Route::post('/login', [SessionsController::class, 'store'])->name('login-succsses');
+Route::get('/logout',  [SessionsController::class, 'destroy'])->name('logout');
 

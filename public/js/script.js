@@ -17,8 +17,12 @@ jQuery(document).ready(function ($) {
     engine.initialize();
     $('#term').typeahead(
         {
-            hint: true,
-            highlight: true,
+            classNames: {
+                dataset: 'w-100',
+                menu: 'w-100'
+              },
+            hint: false,
+            highlight: false,
             minLength: 1
         },
         {
@@ -26,8 +30,14 @@ jQuery(document).ready(function ($) {
             displayKey: "name",
             limit: 4,
             templates: {
+                empty: [
+                    '<div class="list-group-item drop"><a>Nothing found.</a></div>'
+                ],
+                header: [
+                    '<div class="list-group search-results-dropdown">'
+                ],
                 suggestion: function(data) {
-                     var details = "<div class='drop'> <a href='/site/cms/public/anime/" + data.url + "'>" 
+                     var details = "<div class='list-group-item drop'> <a href='/site/cms/public/anime/" + data.url + "'>" 
                                    + data.name 
                                    + "</a></div>" 
                      return details

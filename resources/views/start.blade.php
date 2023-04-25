@@ -3,9 +3,7 @@
 @endsection
 
 @section('content')
-
-
-        <div class="row container mx-auto">
+    <div class="row container mx-auto">
         <h1>Главная страница</h1>
-        </div>
+    </div>
 @endsection

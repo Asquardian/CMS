@@ -1,6 +1,8 @@
 header{
     height: calc(3vw + 50px);
     width: 100%;
+    position: fixed;
+    z-index: 1000;
 }
 
 footer {
@@ -9,6 +11,7 @@ footer {
 }
 
 main{
+    padding: calc(3vw + 50px);
     min-height: 80vh;
 }
 

@@ -31,8 +31,16 @@
             <button onclick="changeTheme()"><i class="fa fa-sun"></i></button>
             <label class="my-auto">Поиск: </label>
             <div class="form-group my-auto">
-                <input type="text" id="term" name="term" class="form-control ">
+                <input type="text" id="term" name="term" class="form-control " autocomplete="off">
             </div>
+            @if (auth()->check())
+                    <a href="#">{{ auth()->user()->name }}</a>
+                    <a href="{{ url('logout') }}">Выйти</a>
+
+            @else
+                <a href="{{ url('login') }}">Войти</a>
+                <a href="{{ url('register') }}">Зарегистрироваться</a>
+            @endif
         </div>
     </header>
     <main>
@@ -43,8 +51,6 @@
     </footer>
     {{ HTML::script('js/script.js') }}
 </body>
-<script src="js/script.js" type="text/javascript">
-    
-</script>
+<script src="js/script.js" type="text/javascript"></script>
 
 </html>
