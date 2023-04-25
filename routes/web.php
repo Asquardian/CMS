@@ -19,14 +19,15 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
+Route::get('/', function () {
+    return view('start');
+});
+
 Route::post('/add', [AnimeController::class, 'add'])->name('create-anime');
 Route::post('/add-studio', [StudiosController::class, 'add'])->name('create-studio');
 
 Route::get('/autocomplete', [AnimeController::class, 'autocomplete'])->name('autocomplete');
 
-Route::get('/', function () {
-    return view('start');
-});
 
 Route::get('/anime', function (Request $req) {
     if($req->exists("ord") && $req->exists("by")){
