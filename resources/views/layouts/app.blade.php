@@ -23,11 +23,12 @@
             <div class="w-50">
                 <h3 class="my-auto">Let`s Anime</h3>
                 <div class="d-flex justify-content-between">
-                    <a href="/site/cms/public/anime">Все Аниме</a>
+                    <a href="{{route('main')}}">Все Аниме</a>
                     @if (auth()->check())
                         @if (auth()->user()->isAdmin())
-                            <a href="/site/cms/public/create/anime">Создать аниме</a>
-                            <a href="/site/cms/public/create/studio">Создать студию</a>
+                            <a href="{{route('form-anime')}}">Создать аниме</a>
+                            <a href="{{route('form-studio')}}">Создать студию</a>
+                            <a href="{{route('form-genre')}}">Создать жанр</a>
                         @endif
                     @endif
                 </div>

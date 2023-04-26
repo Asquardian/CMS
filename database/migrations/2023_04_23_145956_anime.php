@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('image');
             $table->unsignedBigInteger('studio');
             $table->date('date');
+            $table->json('genre');
             $table->integer('rating')->default('0');
             $table->integer('votes')->default('0');
             $table->integer('state');

@@ -32,6 +32,7 @@ class AnimeController extends Controller
         $anime->date =  date('Y-m-d H:i:s', $time);
         $anime->studio = $request->input('studio');
         $anime->state = $request->input('state');
+        $anime->genre = json_encode($request->input('genre'));
         //$anime->studio = $request->file('image');
         $anime->image = $this->saveImg($request->file('image'));
         $anime->url = $request->input('url');
@@ -54,6 +55,12 @@ class AnimeController extends Controller
         $anime = new Anime();
         return $anime->getAnimePage($by, $ord);
     }
+    
+    public function getAnimePageGenre($by, $ord, $genre)
+    {
+        $anime = new Anime();
+        return $anime->getAnimePageGenre($by, $ord, $genre);
+    }
 
     public function __call($method, $args)
     {
@@ -64,6 +71,8 @@ class AnimeController extends Controller
                     return call_user_func_array(array($this, 'getAnimePageDefault'), $args);
                 case 2:
                     return call_user_func_array(array($this, 'getAnimePageBy'), $args);
+                case 3:
+                    return call_user_func_array(array($this, 'getAnimePageGenre'), $args);
             }
         }
     }
@@ -71,9 +80,9 @@ class AnimeController extends Controller
     public function autocomplete(Request $request)
     {
         $res = Anime::select("name", "url")
-                ->where("name","LIKE","%{$request->term}%")->limit(5)
-                ->get();
-    
+            ->where("name", "LIKE", "%{$request->term}%")->limit(5)
+            ->get();
+
         return response()->json($res);
     }
 }

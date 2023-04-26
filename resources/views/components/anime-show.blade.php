@@ -11,12 +11,22 @@
                     <p class="col-6">{{ $item->studio }}</p>
                     <p class="col-6">Состояние:</p>
                     <p class="col-6">{{ $item->state }}</p>
+                    <p class="col-6">Жанры:</p>
+                    <p class="col-6">
+                        @foreach (json_decode($item->genre) as $key => $genre)
+                            @if ($key === array_key_last(json_decode($item->genre)))
+                                <a href="{{ route('main') . '?genre=' . $genre }}">{{ $genre }}</a>
+                            @else
+                                <a href="{{ route('main') . '?genre=' . $genre }}">{{ $genre }}, </a>
+                            @endif
+                        @endforeach
+                    </p>
                     <p class="col-6">Дата выхода:</p>
                     <p class="col-6">
                         <?php
                         $formatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::LONG, IntlDateFormatter::LONG);
                         $formatter->setPattern('d MMMM yyyy');
-                        echo($formatter->format(new DateTime($item->date))) ?>
+                        echo $formatter->format(new DateTime($item->date)); ?>
                     </p>
                 </div>
                 <p>

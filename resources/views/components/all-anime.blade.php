@@ -11,7 +11,15 @@
                     <p class="card-text">
                         Студия: <a href="">{{ $item->studio }}</a><br>
                         Статус: {{ $item->state }}<br>
-                        {{ date('Y', strtotime($item->date)) }}
+                        Год: {{ date('Y', strtotime($item->date)) }}<br>
+                        Жанры: 
+                        @foreach (json_decode($item->genre) as $key => $genre)
+                            @if ($key === array_key_last(json_decode($item->genre)))
+                                <a href="{{ route('main') . '?genre=' . $genre }}">{{ $genre }}</a>
+                            @else
+                                <a href="{{ route('main') . '?genre=' . $genre }}">{{ $genre }}, </a>
+                            @endif
+                        @endforeach
                     </p>
                 </div>
 

@@ -17,4 +17,14 @@ class Anime extends Model
         ->select(['anime.*', 'studios.name as studio', 'anime_info.description'])->paginate(3);
         return $anime;
     }
+    
+    public function getAnimePageGenre($by, $ord, $genre){
+        $anime = DB::table('anime')->join('studios', 'anime.studio', '=', 'studios.id')->whereRaw('JSON_CONTAINS(genre, \'' . 
+        str_replace("\\", "\\\\", $genre)
+         . '\', \'$\')')
+        ->orderBy($by, $ord)
+        ->leftJoin('anime_info', 'anime.id', '=', 'anime_info.anime')
+        ->select(['anime.*', 'studios.name as studio', 'anime_info.description'])->paginate(3);
+        return $anime;
+    }
 }

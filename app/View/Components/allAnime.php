@@ -37,12 +37,18 @@ class allAnime extends Component
         return $ord;
     }
 
-    protected $anime, $by, $ord;
-    public function __construct($by, $ord)
+    protected $anime, $by, $ord, $genre, $exist;
+    public function __construct($req)
     {
-        $this->ord = $this->ordToSQL($by, $ord);
-        $this->by = $this->byToSQL($by);
         $this->anime = new AnimeController();
+        if($req->exists('genre')) {
+            $this->genre = json_encode($req->genre);
+        }
+        else if ($req->exists('by') && $req->exists('ord')) {
+            $this->ord = $this->ordToSQL($req->by, $req->ord);
+            $this->by = $this->byToSQL($req->by);
+        } 
+         
     }
 
     /**
@@ -50,6 +56,12 @@ class allAnime extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.all-anime', ['anime' => $this->anime->getAnimePage($this->by, $this->ord)]);
+        if (!empty($this->genre)) {
+            return view('components.all-anime', ['anime' => $this->anime->getAnimePage('date', 'DESC', $this->genre)]);
+        }
+        if (!empty($this->by)) {
+            return view('components.all-anime', ['anime' => $this->anime->getAnimePage($this->by, $this->ord)]);
+        }
+            return view('components.all-anime', ['anime' => $this->anime->getAnimePage()]);
     }
 }
