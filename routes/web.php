@@ -24,9 +24,9 @@ Route::get('/', function () {
     return view('start');
 });
 
-Route::post('/add', [AnimeController::class, 'add'])->name('create-anime');
-Route::post('/add-studio', [StudiosController::class, 'add'])->name('create-studio');
-Route::post('/add-genre', [GenreController::class, 'add'])->name('create-genre');
+Route::post('/add', [AnimeController::class, 'add'])->name('create-anime')->middleware('admin');
+Route::post('/add-studio', [StudiosController::class, 'add'])->name('create-studio')->middleware('admin');
+Route::post('/add-genre', [GenreController::class, 'add'])->name('create-genre')->middleware('admin');
 
 Route::get('/autocomplete', [AnimeController::class, 'autocomplete'])->name('autocomplete');
 
@@ -40,16 +40,16 @@ Route::get('/anime', function (Request $req) {
 
 Route::get('/create/studio', function () {
     return view('create-studio');
-})->name('form-studio');
+})->name('form-studio')->middleware('admin');
 
 Route::get('/create/genre', function () {
     return view('genre');
-})->name('form-genre');
+})->name('form-genre')->middleware('admin');
 
 Route::get('/create/anime', function () {
     $studios = DB::table('studios')->select(['id', 'name'])->get();
     return view('create', ['studios' => $studios, 'genre' => GenreController::selectName()]);
-})->name('form-anime');
+})->name('form-anime')->middleware('admin');
 
 Route::get('/anime/{url?}', function ($url) {
     return View::make('page', ['url' => $url]);
