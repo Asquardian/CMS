@@ -37,18 +37,29 @@ class allAnime extends Component
         return $ord;
     }
 
-    protected $anime, $by, $ord, $genre, $exist;
+    protected $anime, $genre, $exist, $req;
     public function __construct($req)
     {
         $this->anime = new AnimeController();
+        $this->req = array();
+        $this->req["ord"] = "DESC";
+        $this->req["by"] = "anime.date";
+        $this->req["start"] = "1970-01-01";
+        $this->req["studio"] = '';
+        $this->req["genre"] = '';
         if($req->exists('genre')) {
-            $this->genre = json_encode($req->genre);
+            $this->req["genre"] = json_encode($req->genre);
         }
-        else if ($req->exists('by') && $req->exists('ord')) {
-            $this->ord = $this->ordToSQL($req->by, $req->ord);
-            $this->by = $this->byToSQL($req->by);
-        } 
-         
+        if ($req->exists('by') && $req->exists('ord')) {
+            $this->req["ord"] = $this->ordToSQL($req->by, $req->ord);
+            $this->req["by"] = $this->byToSQL($req->by);
+        }
+        if ($req->exists('start')) {
+            $this->req["start"] = $req->start;
+        }
+        if ($req->exists('studio')) {
+            $this->req["studio"] = $req->studio;
+        }
     }
 
     /**
@@ -56,12 +67,6 @@ class allAnime extends Component
      */
     public function render(): View|Closure|string
     {
-        if (!empty($this->genre)) {
-            return view('components.all-anime', ['anime' => $this->anime->getAnimePage('date', 'DESC', $this->genre)]);
-        }
-        if (!empty($this->by)) {
-            return view('components.all-anime', ['anime' => $this->anime->getAnimePage($this->by, $this->ord)]);
-        }
-            return view('components.all-anime', ['anime' => $this->anime->getAnimePage()]);
+            return view('components.all-anime', ['anime' => $this->anime->getAnimePage($this->req)]);
     }
 }

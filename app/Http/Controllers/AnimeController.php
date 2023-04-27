@@ -50,18 +50,12 @@ class AnimeController extends Controller
         return $anime->getAnimePage('anime.date', 'DESC');
     }
 
-    public function getAnimePageBy($by, $ord)
+    public function getAnimePageBy($req)
     {
         $anime = new Anime();
-        return $anime->getAnimePage($by, $ord);
+        return $anime->getAnimePageAll($req);
     }
     
-    public function getAnimePageGenre($by, $ord, $genre)
-    {
-        $anime = new Anime();
-        return $anime->getAnimePageGenre($by, $ord, $genre);
-    }
-
     public function __call($method, $args)
     {
         $argscnt = count($args);
@@ -69,10 +63,8 @@ class AnimeController extends Controller
             switch ($argscnt) {
                 case 0:
                     return call_user_func_array(array($this, 'getAnimePageDefault'), $args);
-                case 2:
+                case 1:
                     return call_user_func_array(array($this, 'getAnimePageBy'), $args);
-                case 3:
-                    return call_user_func_array(array($this, 'getAnimePageGenre'), $args);
             }
         }
     }

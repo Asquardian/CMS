@@ -32,10 +32,8 @@ Route::get('/autocomplete', [AnimeController::class, 'autocomplete'])->name('aut
 
 
 Route::get('/anime', function (Request $req) {
-    if($req->exists("ord") && $req->exists("by")){
-        return view('main', ['req' => $req]);
-    }
-    return view('main', ['req' => $req]);
+    $studios = DB::table('studios')->select(['id', 'name'])->get();
+    return view('main', ['studios' => $studios,'req' => $req, 'genre' => GenreController::selectName()]);
 })->name('main');
 
 Route::get('/create/studio', function () {
@@ -56,10 +54,10 @@ Route::get('/anime/{url?}', function ($url) {
 });
 
 
-Route::get('/register', [RegController::class, 'create']);
-Route::post('/register', [RegController::class, 'store'])->name('user-create');
+Route::get('/register', [RegController::class, 'create'])->middleware('user');
+Route::post('/register', [RegController::class, 'store'])->name('user-create')->middleware('user');
 
-Route::get('/login', [SessionsController::class, 'create']);
-Route::post('/login', [SessionsController::class, 'store'])->name('login-succsses');
-Route::get('/logout',  [SessionsController::class, 'destroy'])->name('logout');
+Route::get('/login', [SessionsController::class, 'create'])->middleware('user');
+Route::post('/login', [SessionsController::class, 'store'])->name('login-succsses')->middleware('user');
+Route::get('/logout',  [SessionsController::class, 'destroy'])->name('logout')->middleware('non-user');
 

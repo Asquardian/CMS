@@ -14,7 +14,7 @@ class Genre extends Model
     }
     public static function strToSql($genre){
         $genre = str_replace("\\", "\\\\", $genre);
-        $genre = str_replace(',', '",\\"', $genre);
+        $genre = str_replace(',', ',\\', $genre);
         return "'" . $genre ."'";
     }
     public static function selectName(){
